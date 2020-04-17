@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "SwifQLNIO",
+    platforms: [
+       .macOS(.v10_15)
+    ],
     products: [
         .library(name: "SwifQLNIO", targets: ["SwifQLNIO"]),
         ],
