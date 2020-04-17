@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,10 +10,13 @@ let package = Package(
         ],
     dependencies: [
         .package(url: "https://github.com/MihaelIsaev/SwifQL.git", from:"2.0.0-beta"),
-        .package(url: "https://github.com/apple/swift-nio.git", from: "2.10.0"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.16.0"),
         ],
     targets: [
-        .target(name: "SwifQLNIO", dependencies: ["NIO", "SwifQL"]),
+        .target(name: "SwifQLNIO", dependencies: [
+            .product(name: "NIO", package: "swift-nio"),
+            .product(name: "SwifQL", package: "SwifQL")
+        ]),
         .testTarget(name: "SwifQLNIOTests", dependencies: ["SwifQLNIO"]),
         ]
 )
