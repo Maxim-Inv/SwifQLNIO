@@ -19,7 +19,7 @@ public class AliasedKeyPath<M, V> where M: Decodable, M: Reflectable {
     }
 }
 
-extension AliasedKeyPath: SwifQLUniversalKeyPath, SwifQLUniversalKeyPathSimple {
+extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
     public typealias AType = V
     public typealias AModel = M
     public typealias ARoot = AliasedKeyPath
@@ -66,7 +66,7 @@ extension AliasedKeyPath: Keypathable {
 
 //MARK: - KeyPath
 
-extension KeyPath: SwifQLUniversalKeyPath, SwifQLUniversalKeyPathSimple, KeyPathLastPath  where Root: Decodable & Reflectable {
+extension KeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple, KeyPathLastPath  where Root: Decodable & Reflectable {
     public typealias AType = Value
     public typealias AModel = Root
     public typealias ARoot = KeyPath
@@ -140,7 +140,7 @@ extension KeyPath: Keypathable where Root: Reflectable {
 
 struct _FormattedKeyPath {
     var pathWithTable: String = ""
-    var path: String = ""
+    var path: String = ""    
     var lastPath: String = ""
     
     init (table: String, paths: [String]) {
