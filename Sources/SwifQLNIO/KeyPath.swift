@@ -19,7 +19,7 @@ public class AliasedKeyPath<M, V> where M: Decodable, M: Reflectable {
     }
 }
 
-extension AliasedKeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple {
+extension AliasedKeyPath: SwifQLUniversalKeyPath, SwifQLUniversalKeyPathSimple {
     public typealias AType = V
     public typealias AModel = M
     public typealias ARoot = AliasedKeyPath
@@ -66,7 +66,7 @@ extension AliasedKeyPath: Keypathable {
 
 //MARK: - KeyPath
 
-extension KeyPath: FQUniversalKeyPath, FQUniversalKeyPathSimple, KeyPathLastPath  where Root: Decodable & Reflectable {
+extension KeyPath: SwifQLUniversalKeyPath, SwifQLUniversalKeyPathSimple, KeyPathLastPath  where Root: Decodable & Reflectable {
     public typealias AType = Value
     public typealias AModel = Root
     public typealias ARoot = KeyPath
@@ -110,7 +110,7 @@ extension KeyPath: SwifQLKeyPathable where Root: Reflectable {
             return kp.schema
         }
         if let model = Root.self as? Tableable.Type {
-            return model.entity
+            return model.tableName
         }
         return String(describing: Root.self)
     }
@@ -167,7 +167,7 @@ struct _FormattedKeyPath {
 
 func formattedPath<T, V>(_ table: T.Type, _ kp: KeyPath<T, V>) -> _FormattedKeyPath where T: Reflectable {
     if let table = table as? Tableable.Type {
-        return formattedPath(table.entity, kp)
+        return formattedPath(table.tableName, kp)
     }
     return formattedPath(String(describing: table), kp)
 }
